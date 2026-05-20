@@ -1,0 +1,24 @@
+ # Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+venv/
+.venv/
+
+# Data (too large for git, keep local)
+data/*.csv
+data/*.png
+data/*.json
+
+# Node / frontend
+node_modules/
+dist/
+.env.local
+
+# VSCode
+.vscode/settings.json
+
+# OS
+.DS_Store
+Thumbs.db
