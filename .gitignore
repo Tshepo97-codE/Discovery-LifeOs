@@ -7,9 +7,9 @@ venv/
 .venv/
 
 # Data (too large for git, keep local)
-data/*.csv
-data/*.png
-data/*.json
+ml/data/*.csv
+ml/data/*.png
+ml/data/*.json
 
 # Node / frontend
 node_modules/
