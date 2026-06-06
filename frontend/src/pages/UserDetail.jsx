@@ -37,8 +37,8 @@ function ChartTip({ active, payload, label }) {
   )
 }
 
-// ── Claude panel wrapper ──────────────────────────────────────────────────────
-function ClaudeCard({ title, icon: Icon, children, loading, color = 'teal' }) {
+// ── Gemini panel wrapper ──────────────────────────────────────────────────────
+function GeminiCard({ title, icon: Icon, children, loading, color = 'teal' }) {
   const styles = {
     teal:  { border: 'border-teal-800/50',  bg: 'rgba(13,148,136,0.06)',  text: 'text-teal-400'  },
     amber: { border: 'border-amber-800/50', bg: 'rgba(217,119,6,0.06)',   text: 'text-amber-400' },
@@ -52,7 +52,7 @@ function ClaudeCard({ title, icon: Icon, children, loading, color = 'teal' }) {
         {loading && <Loader2 size={12} className="animate-spin ml-auto" />}
       </div>
       {loading
-        ? <p className="text-xs text-gray-500 animate-pulse">Asking Claude...</p>
+        ? <p className="text-xs text-gray-500 animate-pulse">Asking Gemini...</p>
         : children}
     </div>
   )
@@ -106,7 +106,7 @@ export default function UserDetail() {
   const [timeline, setTimeline] = useState([])
   const [loading,  setLoading]  = useState(true)
 
-  // Claude states
+  // Gemini states
   const [explanation,    setExplanation]    = useState('')
   const [interventions,  setInterventions]  = useState(null)
   const [counterfactual, setCounterfactual] = useState(null)
@@ -351,16 +351,16 @@ export default function UserDetail() {
         </ResponsiveContainer>
       </Card>
 
-      {/* ── Claude panels ────────────────────────────────────────────────────── */}
+      {/* ── Gemini panels ────────────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
         {/* Streaming explanation */}
-        <ClaudeCard title="Risk explanation" icon={Brain} loading={loadingEx && !explanation} color="teal">
+        <GeminiCard title="Risk explanation" icon={Brain} loading={loadingEx && !explanation} color="teal">
           {!explanation && !loadingEx && (
             <button onClick={loadExplanation}
                     className="w-full text-xs text-teal-400 border border-teal-800/50 rounded-lg py-2.5
                                hover:bg-teal-900/20 transition-all font-mono">
-              Ask Claude to explain →
+              Ask Gemini to explain →
             </button>
           )}
           {explanation && (
@@ -369,10 +369,10 @@ export default function UserDetail() {
               {streaming && <span className="inline-block w-1.5 h-4 bg-teal-400 ml-0.5 animate-pulse align-text-bottom" />}
             </p>
           )}
-        </ClaudeCard>
+        </GeminiCard>
 
         {/* Interventions */}
-        <ClaudeCard title={`Interventions${loadShedding ? ' (load-shedding)' : ''}`}
+        <GeminiCard title={`Interventions${loadShedding ? ' (load-shedding)' : ''}`}
                     icon={Zap} loading={loadingIv} color="amber">
           {!interventions && !loadingIv && (
             <button onClick={loadInterventions}
@@ -386,10 +386,10 @@ export default function UserDetail() {
               {interventions.map((iv, i) => <IVCard key={i} iv={iv} />)}
             </div>
           )}
-        </ClaudeCard>
+        </GeminiCard>
 
         {/* Counterfactual — the killer demo moment */}
-        <ClaudeCard title="What happens without action?" icon={TrendingDown} loading={loadingCf} color="coral">
+        <GeminiCard title="What happens without action?" icon={TrendingDown} loading={loadingCf} color="coral">
           {!cfVisible && !loadingCf && (
             <button onClick={loadCounterfactual}
                     className="w-full text-xs text-red-400 border border-red-800/50 rounded-lg py-2.5
@@ -429,7 +429,7 @@ export default function UserDetail() {
               </p>
             </div>
           )}
-        </ClaudeCard>
+        </GeminiCard>
       </div>
 
       {/* ── Counterfactual comparison chart — reveals after toggle ─────────── */}

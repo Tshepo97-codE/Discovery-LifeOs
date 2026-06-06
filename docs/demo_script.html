@@ -621,8 +621,8 @@ body {
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box">✓</div>
           <div class="check-body">
-            <div class="check-title">ANTHROPIC_API_KEY is set in backend/.env</div>
-            <div class="check-sub">Visit localhost:8000 and confirm "claude": "connected" in the JSON response</div>
+            <div class="check-title">GEMINI_API_KEY is set in backend/.env</div>
+            <div class="check-sub">Visit localhost:8000 and confirm "gemini": "connected" in the JSON response</div>
           </div>
           <span class="check-tag tag-critical">CRITICAL</span>
         </div>
@@ -630,8 +630,8 @@ body {
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box">✓</div>
           <div class="check-body">
-            <div class="check-title">Navigate to USR_001 and pre-load all three Claude panels</div>
-            <div class="check-sub">Click "Ask Claude to explain", "Generate interventions", and "Show counterfactual" — let them load once so there's no wait during demo</div>
+            <div class="check-title">Navigate to USR_001 and pre-load all three Gemini panels</div>
+            <div class="check-sub">Click "Ask Gemini to explain", "Generate interventions", and "Show counterfactual" — let them load once so there's no wait during demo</div>
           </div>
           <span class="check-tag tag-critical">CRITICAL</span>
         </div>
@@ -792,18 +792,18 @@ body {
       <div class="beat" onclick="toggleBeat(this)">
         <div class="beat-header">
           <span class="beat-num">04</span>
-          <span class="beat-title">Claude explains — the live AI moment</span>
+          <span class="beat-title">Gemini explains — the live AI moment</span>
           <span class="beat-time">5:30 – 7:00</span>
           <span class="beat-chevron">▶</span>
         </div>
         <div class="beat-body">
           <div class="action-line">
             <div class="label">Action</div>
-            <p>Scroll to the three Claude panels. Click "Ask Claude to explain →". Watch text stream in.</p>
+            <p>Scroll to the three Gemini panels. Click "Ask Gemini to explain →". Watch text stream in.</p>
           </div>
           <div class="script-line">
             <div class="label">While it streams — say this</div>
-            <p>"The model doesn't just produce a number. <strong>Every risk score comes with an explanation</strong> — generated live by Claude. Watch the text arrive. This is what the user would see in the Discovery app. Not a score. A story."</p>
+            <p>"The model doesn't just produce a number. <strong>Every risk score comes with an explanation</strong> — generated live by Gemini. Watch the text arrive. This is what the user would see in the Discovery app. Not a score. A story."</p>
           </div>
           <div class="action-line">
             <div class="label">After it loads</div>
@@ -811,7 +811,7 @@ body {
           </div>
           <div class="script-line">
             <div class="label">Say this</div>
-            <p>"<strong>That's not a template.</strong> That's the model reading this specific person's behavioural trajectory and writing a personalised explanation. SHAP values tell Claude which signals mattered most. Claude turns that into something a human can actually act on."</p>
+            <p>"<strong>That's not a template.</strong> That's the model reading this specific person's behavioural trajectory and writing a personalised explanation. SHAP values tell Gemini which signals mattered most. Gemini turns that into something a human can actually act on."</p>
           </div>
           <div class="tip-box">
             <div class="label">Tip</div>
@@ -1023,7 +1023,7 @@ body {
           <div class="loom-card-title">Before recording</div>
           <ul>
             <li>Restart both backend and frontend fresh</li>
-            <li>Clear all Claude panels (hard refresh the page)</li>
+            <li>Clear all Gemini panels (hard refresh the page)</li>
             <li>Set browser zoom to 100%</li>
             <li>Close all other browser tabs</li>
             <li>Test audio — say "Discovery LifeOS demo" and play it back</li>
@@ -1040,7 +1040,7 @@ body {
             <li>Counterfactual chart — point at the amber gap (20 sec)</li>
             <li>Navigate to USR_001 — introduce the user story (60 sec)</li>
             <li>Switch chart views — wellness → risk (30 sec)</li>
-            <li>Click "Ask Claude to explain" — let it stream (45 sec)</li>
+            <li>Click "Ask Gemini to explain" — let it stream (45 sec)</li>
             <li>Toggle load-shedding on → generate interventions (45 sec)</li>
             <li>Click "Show counterfactual" — read the numbers aloud (60 sec)</li>
             <li>End on the counterfactual chart — let it sit for 5 seconds</li>
@@ -1095,8 +1095,8 @@ body {
 
         <div class="check-item" style="cursor:default">
           <div class="check-body">
-            <div class="check-title" style="color:var(--coral)">🔴 Claude API times out or returns an error</div>
-            <div class="check-sub" style="margin-top:6px;color:var(--gray3)">The fallback responses are built into claude_service.py — they activate automatically when the API fails. The UI looks identical. If judges ask: "We have a fallback layer — the architecture is the same, the API just returns a cached response under load."</div>
+            <div class="check-title" style="color:var(--coral)">🔴 Gemini API times out or returns an error</div>
+            <div class="check-sub" style="margin-top:6px;color:var(--gray3)">The fallback responses are built into gemini_service.py — they activate automatically when the API fails. The UI looks identical. If judges ask: "We have a fallback layer — the architecture is the same, the API just returns a cached response under load."</div>
           </div>
         </div>
 

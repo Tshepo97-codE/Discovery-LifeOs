@@ -1,7 +1,7 @@
 """
 Discovery LifeOS — AI Service  (Gemini free tier)
 ==================================================
-Drop-in replacement for claude_service.py.
+
 Uses Google Gemini 2.0 Flash — completely free, no billing required.
 
 Get your key at: https://aistudio.google.com  (sign in with Google → Get API key)

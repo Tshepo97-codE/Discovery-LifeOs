@@ -131,12 +131,12 @@ You should see:
   "status": "ok",
   "service": "Discovery LifeOS API",
   "version": "1.0.0",
-  "claude": "connected",
+  "gemini": "connected",
   "model_metrics": { ... }
 }
 ```
 
-If `"claude"` shows `"fallback mode (no API key)"` — check your `backend/.env` file.
+If `"gemini"` shows `"fallback mode (no API key)"` — check your `backend/.env` file.
 
 #### Test a specific endpoint
 
@@ -182,7 +182,7 @@ Work through this checklist in the browser:
 - [ ] Users page lists all 5 users
 - [ ] Click USR_001 → User Detail page loads
 - [ ] Chart signal switcher works (Risk / Wellness / Nutrition / Mobility)
-- [ ] Click "Ask Claude to explain" → text streams in live
+- [ ] Click "Ask Gemini to explain" → text streams in live
 - [ ] Click "Generate interventions" → 3 cards appear
 - [ ] Toggle load-shedding ON → re-generate → interventions change
 - [ ] Click "Show counterfactual" → chart animates in with two lines
@@ -228,7 +228,7 @@ python risk_model.py
 ### `CORS error` in browser console
 The backend has CORS enabled for all origins in development. If you still see this, make sure the backend is running on port 8000 and the Vite proxy in `frontend/vite.config.js` is configured correctly.
 
-### `"claude": "fallback mode"` in health check
+### `"gemini": "fallback mode"` in health check
 ```bash
 # Check your .env file
 cat backend/.env

@@ -123,7 +123,7 @@ def health():
         "status":      "ok",
         "service":     "Discovery LifeOS API",
         "version":     "1.0.0",
-        "claude":      "connected" if has_key else "fallback mode (no API key)",
+        "gemini":      "connected" if has_key else "fallback mode (no API key)",
         "model_metrics": MODEL_METRICS,
     }
 
@@ -217,7 +217,7 @@ def get_timeline(uid: str):
 
 @app.get("/api/users/{uid}/explain")
 async def explain(uid: str):
-    """Standard (non-streaming) explanation from Claude."""
+    """Standard (non-streaming) explanation from Gemini."""
     user_data  = get_user(uid)
     user       = DATA["users"][DATA["users"]["user_id"] == uid].iloc[0]
     pred       = user_data["prediction"]
@@ -316,7 +316,7 @@ def dashboard_summary():
             "avg_effectiveness":    round(float(ivs["effectiveness"].mean()) * 100, 1) if not ivs.empty else 0,
             "users_responded":      int(ivs["user_responded"].sum()) if not ivs.empty else 0,
             "high_risk_today":      int((risk[risk["phase"] == "recovery"]["risk_score"] >= 55).sum()),
-            "claude_enabled":       bool(os.getenv("ANTHROPIC_API_KEY", "")),
+            "gemini_enabled":       bool(os.getenv("GEMINI_API_KEY", "")),
         },
         "risk_arc": {
             "baseline_avg":  round(baseline_avg, 1),
