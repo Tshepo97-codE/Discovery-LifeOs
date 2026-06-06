@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "ms-python.pylance",
+    "eamodio.gitlens",
+    "GitHub.vscode-pull-request-github",
+    "dsznajder.es7-react-js-snippets",
+    "bradlc.vscode-tailwindcss",
+    "esbenp.prettier-vscode",
+    "rangav.vscode-thunder-client",
+    "aaron-bond.better-comments",
+    "usernamehw.errorlens",
+    "formulahendry.auto-rename-tag",
+    "mikestead.dotenv",
+    "ms-azuretools.vscode-docker"
+  ]
+}
