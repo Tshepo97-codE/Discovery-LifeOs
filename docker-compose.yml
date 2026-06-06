@@ -1,0 +1,66 @@
+name: discovery-lifeos
+
+# ── Services ───────────────────────────────────────────────────
+services:
+
+  # ── Backend API + ML models ───────────────────────────────────
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: lifeos-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - ENVIRONMENT=${ENVIRONMENT:-development}
+    env_file:
+      - backend/.env
+    volumes:
+      # Hot-reload backend source during development
+      - ./backend:/app/backend:ro
+      # Persist generated model files across restarts
+      - ml_data:/app/ml/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s   # ML model loading takes time
+    networks:
+      - lifeos-net
+
+  # ── React frontend ────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # Points Nginx proxy at the backend container
+        VITE_API_URL: http://backend:8000
+    container_name: lifeos-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"    # Map Nginx port 80 → host port 5173
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - lifeos-net
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:80/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+# ── Volumes ────────────────────────────────────────────────────
+volumes:
+  ml_data:
+    name: lifeos-ml-data
+
+# ── Networks ───────────────────────────────────────────────────
+networks:
+  lifeos-net:
+    name: lifeos-network
+    driver: bridge

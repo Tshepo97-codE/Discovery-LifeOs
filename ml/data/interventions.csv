@@ -1,0 +1,9 @@
+intervention_id,user_id,date,day_index,week,phase,trigger_risk_score,intervention_type,domain,channel,effectiveness,user_responded
+IV_0001,USR_001,2024-03-13,72,11,recovery,51,rest_day_encouragement,wellness,in_app_message,0.54,0
+IV_0001,USR_002,2024-02-28,58,9,decline,50,fatigue_warning,mobility,push_notification,0.35,1
+IV_0002,USR_002,2024-03-13,72,11,recovery,50,meal_prep_guide,nutrition,in_app_message,0.57,1
+IV_0001,USR_003,2024-03-14,73,11,recovery,51,healthy_food_discount,nutrition,push_notification,0.74,1
+IV_0001,USR_004,2024-03-13,72,11,recovery,52,route_risk_alert,mobility,push_notification,0.67,1
+IV_0002,USR_004,2024-03-14,73,11,recovery,50,meal_prep_guide,nutrition,in_app_message,0.53,1
+IV_0001,USR_005,2024-03-12,71,11,recovery,57,vitality_point_boost,wellness,push_notification,0.55,0
+IV_0002,USR_005,2024-03-13,72,11,recovery,54,route_risk_alert,mobility,push_notification,0.66,0

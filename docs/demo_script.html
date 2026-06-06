@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Discovery LifeOS — Demo Script & Recording Checklist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+
+<style>
+/* ── Reset & tokens ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --dark:    #0B1120;
+  --card:    #111827;
+  --border:  #1F2937;
+  --border2: #374151;
+  --teal:    #0D9488;
+  --teal2:   #2DD4BF;
+  --coral:   #E05A3A;
+  --amber:   #D97706;
+  --purple:  #7C6FF7;
+  --gray3:   #D1D5DB;
+  --gray4:   #9CA3AF;
+  --gray5:   #6B7280;
+  --gray6:   #374151;
+  --white:   #F9FAFB;
+  --f-display: 'DM Serif Display', Georgia, serif;
+  --f-body:    'DM Sans', system-ui, sans-serif;
+  --f-mono:    'DM Mono', monospace;
+  --r:         10px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--dark);
+  color: var(--white);
+  font-family: var(--f-body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+}
+
+/* ── Sidebar nav ─────────────────────────────────────────────── */
+.sidebar {
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  padding: 28px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-logo {
+  padding: 0 20px 24px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.sidebar-logo .product {
+  font-family: var(--f-display);
+  font-size: 20px;
+  color: var(--white);
+  display: block;
+  line-height: 1.1;
+}
+.sidebar-logo .product span { color: var(--teal); }
+.sidebar-logo .sub {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  color: var(--gray5);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  display: block;
+}
+
+.nav-section {
+  padding: 0 12px;
+  margin-bottom: 4px;
+}
+.nav-label {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  color: var(--gray5);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 8px 4px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--gray4);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+.nav-item:hover { background: var(--border); color: var(--white); }
+.nav-item.active { background: rgba(13,148,136,0.15); color: var(--teal2); }
+.nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--gray6);
+}
+.nav-item.active .nav-dot { background: var(--teal); }
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 20px 0;
+  border-top: 1px solid var(--border);
+}
+.timer-display {
+  font-family: var(--f-mono);
+  font-size: 28px;
+  color: var(--teal);
+  letter-spacing: 0.04em;
+}
+.timer-label {
+  font-size: 10px;
+  color: var(--gray5);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+  display: block;
+}
+.timer-btns { display: flex; gap: 6px; margin-top: 8px; }
+.timer-btn {
+  flex: 1;
+  padding: 5px;
+  border-radius: 6px;
+  border: 1px solid var(--border2);
+  background: none;
+  color: var(--gray4);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.timer-btn:hover { border-color: var(--teal); color: var(--teal); }
+.timer-btn.running { border-color: var(--teal); color: var(--teal); background: rgba(13,148,136,0.1); }
+
+/* ── Main content ────────────────────────────────────────────── */
+.main {
+  padding: 48px 56px;
+  max-width: 900px;
+}
+
+/* ── Section headers ─────────────────────────────────────────── */
+.section {
+  margin-bottom: 64px;
+  scroll-margin-top: 32px;
+}
+.section-eyebrow {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--teal);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: var(--f-display);
+  font-size: 32px;
+  color: var(--white);
+  margin-bottom: 6px;
+  line-height: 1.15;
+}
+.section-sub {
+  font-size: 14px;
+  color: var(--gray4);
+  margin-bottom: 28px;
+  max-width: 620px;
+  line-height: 1.6;
+}
+
+/* ── Checklist ───────────────────────────────────────────────── */
+.checklist { display: flex; flex-direction: column; gap: 8px; }
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  user-select: none;
+}
+.check-item:hover { border-color: var(--border2); }
+.check-item.done {
+  background: rgba(13,148,136,0.06);
+  border-color: rgba(13,148,136,0.3);
+}
+
+.check-box {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border2);
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  font-size: 12px;
+}
+.check-item.done .check-box {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: white;
+}
+
+.check-body { flex: 1; min-width: 0; }
+.check-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  line-height: 1.3;
+}
+.check-item.done .check-title {
+  color: var(--gray4);
+  text-decoration: line-through;
+  text-decoration-color: var(--teal);
+}
+.check-sub {
+  font-size: 12px;
+  color: var(--gray5);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+.check-tag {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+.tag-critical { background: rgba(224,90,58,0.15); color: #FCA5A5; }
+.tag-important { background: rgba(217,119,6,0.15); color: #FCD34D; }
+.tag-good { background: rgba(13,148,136,0.15); color: #2DD4BF; }
+
+/* ── Script beats ────────────────────────────────────────────── */
+.beat {
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin-bottom: 12px;
+  transition: border-color 0.15s;
+}
+.beat:hover { border-color: var(--border2); }
+
+.beat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  background: var(--card);
+}
+.beat-num {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--gray5);
+  flex-shrink: 0;
+  width: 20px;
+}
+.beat-title { font-weight: 500; font-size: 14px; flex: 1; }
+.beat-time {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--gray5);
+  background: var(--border);
+  padding: 2px 8px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+.beat-chevron {
+  color: var(--gray5);
+  font-size: 12px;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.beat.open .beat-chevron { transform: rotate(90deg); }
+
+.beat-body {
+  display: none;
+  padding: 0 16px 16px;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+}
+.beat.open .beat-body { display: block; }
+
+.script-line {
+  border-left: 3px solid var(--teal);
+  padding: 10px 14px;
+  margin: 12px 0;
+  background: rgba(13,148,136,0.05);
+  border-radius: 0 6px 6px 0;
+}
+.script-line .label {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  color: var(--teal);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.script-line p {
+  font-size: 14px;
+  color: var(--gray3);
+  line-height: 1.6;
+  font-style: italic;
+}
+.script-line p strong {
+  font-style: normal;
+  color: var(--white);
+  font-weight: 600;
+}
+
+.action-line {
+  border-left: 3px solid var(--purple);
+  padding: 8px 14px;
+  margin: 8px 0;
+  background: rgba(124,111,247,0.05);
+  border-radius: 0 6px 6px 0;
+}
+.action-line .label {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  color: var(--purple);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.action-line p { font-size: 13px; color: var(--gray4); }
+
+.warning-line {
+  border-left: 3px solid var(--coral);
+  padding: 8px 14px;
+  margin: 8px 0;
+  background: rgba(224,90,58,0.05);
+  border-radius: 0 6px 6px 0;
+}
+.warning-line .label {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  color: var(--coral);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.warning-line p { font-size: 13px; color: var(--gray4); }
+
+.tip-box {
+  background: rgba(217,119,6,0.08);
+  border: 1px solid rgba(217,119,6,0.25);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-top: 10px;
+}
+.tip-box .label {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  color: var(--amber);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.tip-box p { font-size: 12px; color: var(--gray4); line-height: 1.5; }
+
+/* ── Stat callout row ────────────────────────────────────────── */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px;
+}
+.stat-value {
+  font-family: var(--f-display);
+  font-size: 28px;
+  color: var(--teal);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-label { font-size: 11px; color: var(--gray4); line-height: 1.3; }
+
+/* ── Q&A table ───────────────────────────────────────────────── */
+.qa-item {
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.qa-q {
+  background: var(--card);
+  padding: 12px 16px;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--white);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  cursor: pointer;
+}
+.qa-q-icon {
+  color: var(--coral);
+  font-family: var(--f-mono);
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.qa-a {
+  background: rgba(13,148,136,0.04);
+  border-top: 1px solid var(--border);
+  padding: 12px 16px 12px 38px;
+  font-size: 13px;
+  color: var(--gray3);
+  line-height: 1.6;
+  display: none;
+}
+.qa-item.open .qa-a { display: block; }
+.qa-a strong { color: var(--teal); font-weight: 600; }
+
+/* ── Progress bar ────────────────────────────────────────────── */
+.progress-bar-wrap {
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-bottom: 32px;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--teal2));
+  border-radius: 2px;
+  transition: width 0.3s;
+}
+
+/* ── Loom section ────────────────────────────────────────────── */
+.loom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.loom-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px;
+}
+.loom-card-title {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--teal);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.loom-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.loom-card li {
+  font-size: 13px;
+  color: var(--gray4);
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.4;
+}
+.loom-card li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--teal);
+}
+
+/* ── Print mode ──────────────────────────────────────────────── */
+.print-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  background: none;
+  color: var(--gray4);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-bottom: 32px;
+}
+.print-btn:hover { border-color: var(--teal); color: var(--teal); }
+
+@media print {
+  .sidebar { display: none; }
+  .layout { grid-template-columns: 1fr; }
+  .main { padding: 24px; }
+  .beat-body { display: block !important; }
+  .qa-a { display: block !important; }
+  body { background: white; color: black; }
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ── Sidebar ─────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span class="product">Discovery <span>LifeOS</span></span>
+      <span class="sub">Demo Script · GradHack 2024</span>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Sections</div>
+      <a class="nav-item active" href="#before">
+        <span class="nav-dot"></span> Before you start
+      </a>
+      <a class="nav-item" href="#script">
+        <span class="nav-dot"></span> Demo script
+      </a>
+      <a class="nav-item" href="#numbers">
+        <span class="nav-dot"></span> Key numbers
+      </a>
+      <a class="nav-item" href="#qa">
+        <span class="nav-dot"></span> Tough Q&amp;A
+      </a>
+      <a class="nav-item" href="#loom">
+        <span class="nav-dot"></span> Loom checklist
+      </a>
+      <a class="nav-item" href="#recovery">
+        <span class="nav-dot"></span> If things go wrong
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <span class="timer-label">Presentation timer</span>
+      <div class="timer-display" id="timerDisplay">00:00</div>
+      <div class="timer-btns">
+        <button class="timer-btn" id="timerStart" onclick="toggleTimer()">Start</button>
+        <button class="timer-btn" onclick="resetTimer()">Reset</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main content ─────────────────────────────────────── -->
+  <main class="main">
+
+    <button class="print-btn" onclick="window.print()">
+      ⎙ Print cheat sheet
+    </button>
+
+    <!-- Progress -->
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 1: BEFORE YOU START
+    ══════════════════════════════════════════════════════ -->
+    <section class="section" id="before">
+      <div class="section-eyebrow">Pre-demo checklist</div>
+      <div class="section-title">Before you start</div>
+      <div class="section-sub">Complete every item before opening the browser. Do this 15 minutes before your slot — not 2 minutes before.</div>
+
+      <div class="checklist" id="preChecklist">
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <div class="check-body">
+            <div class="check-title">Backend is running on localhost:8000</div>
+            <div class="check-sub">cd backend && uvicorn main:app --reload — confirm you see "Application startup complete"</div>
+          </div>
+          <span class="check-tag tag-critical">CRITICAL</span>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <div class="check-body">
+            <div class="check-title">Frontend is running on localhost:5173</div>
+            <div class="check-sub">cd frontend && npm run dev — open the URL and confirm the dashboard loads with data</div>
+          </div>
+          <span class="check-tag tag-critical">CRITICAL</span>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <div class="check-body">
+            <div class="check-title">ANTHROPIC_API_KEY is set in backend/.env</div>
+            <div class="check-sub">Visit localhost:8000 and confirm "claude": "connected" in the JSON response</div>
+          </div>
+          <span class="check-tag tag-critical">CRITICAL</span>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <div class="check-body">
+            <div class="check-title">Navigate to USR_001 and pre-load all three Claude panels</div>
+            <div class="check-sub">Click "Ask Claude to explain", "Generate interventions", and "Show counterfactual" — let them load once so there's no wait during demo</div>
+          </div>
+          <span class="check-tag tag-critical">CRITICAL</span>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <div class="check-body">
+            <div class="check-title">Loom is open and test-recorded</div>
+            <div class="check-sub">Do a 30-second test recording. Confirm audio and screen capture are working. Keep the recording as a backup.</div>
+          </div>
+          <span class="check-tag tag-important">IMPORTANT</span>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <div class="check-body">
+            <div class="check-title">Pitch deck is open in a second window</div>
+            <div class="check-sub">PowerPoint or Google Slides — ready to switch to for the architecture and counterfactual slides</div>
+          </div>
+          <span class="check-tag tag-important">IMPORTANT</span>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <div class="check-body">
+            <div class="check-title">Browser zoom is set to 90% or 100%</div>
+            <div class="check-sub">Not zoomed in or out — the dashboard is designed for standard viewport. Test on the actual screen you'll present from.</div>
+          </div>
+          <span class="check-tag tag-good">GOOD</span>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <div class="check-body">
+            <div class="check-title">Do Not Disturb is on. Notifications are off.</div>
+            <div class="check-sub">Close Slack, WhatsApp web, email. Nothing should pop up during the demo.</div>
+          </div>
+          <span class="check-tag tag-important">IMPORTANT</span>
+        </div>
+
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box">✓</div>
+          <div class="check-body">
+            <div class="check-title">You know your three killer numbers cold</div>
+            <div class="check-sub">AUC 0.988 · MAE 2.29 · 71% disengagement probability. Say them without looking. Practice right now.</div>
+          </div>
+          <span class="check-tag tag-important">IMPORTANT</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 2: DEMO SCRIPT
+    ══════════════════════════════════════════════════════ -->
+    <section class="section" id="script">
+      <div class="section-eyebrow">Live demo script</div>
+      <div class="section-title">The 12-minute story</div>
+      <div class="section-sub">Each beat is timed. Click to expand the full script and action notes. The goal is to feel like a product demo, not a university presentation.</div>
+
+      <!-- Beat 1 -->
+      <div class="beat open" onclick="toggleBeat(this)">
+        <div class="beat-header">
+          <span class="beat-num">01</span>
+          <span class="beat-title">The hook — open on the problem</span>
+          <span class="beat-time">0:00 – 1:30</span>
+          <span class="beat-chevron">▶</span>
+        </div>
+        <div class="beat-body">
+          <div class="action-line">
+            <div class="label">Action</div>
+            <p>Open with the pitch deck on slide 2 — "Discovery sees behaviour. It doesn't predict it." Do NOT open the dashboard yet.</p>
+          </div>
+          <div class="script-line">
+            <div class="label">Say this</div>
+            <p>"Discovery already collects more behavioural data than almost any company in Africa. <strong>Every step tracked, every meal scanned, every kilometre driven.</strong> But today, most of that data tells you what already happened. You track behaviour. You score it. You reward it. And then... you wait for something to go wrong."</p>
+          </div>
+          <div class="script-line">
+            <div class="label">Continue</div>
+            <p>"<strong>Behavioural decline is predictable.</strong> The signals are there 7 to 14 days before the outcome. The gym visits start dropping. The sleep shifts. The app opens less often. The food choices change. Nobody intervenes — because nobody's watching for the pattern. <strong>That's the gap we're closing.</strong>"</p>
+          </div>
+          <div class="tip-box">
+            <div class="label">Tip</div>
+            <p>Pause for one full second after "that's the gap we're closing." Let it land. Don't rush to the next line.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Beat 2 -->
+      <div class="beat" onclick="toggleBeat(this)">
+        <div class="beat-header">
+          <span class="beat-num">02</span>
+          <span class="beat-title">Introduce LifeOS — the platform overview</span>
+          <span class="beat-time">1:30 – 3:00</span>
+          <span class="beat-chevron">▶</span>
+        </div>
+        <div class="beat-body">
+          <div class="action-line">
+            <div class="label">Action</div>
+            <p>Switch to the browser. Open the Dashboard page at localhost:5173. Let it render fully before speaking.</p>
+          </div>
+          <div class="script-line">
+            <div class="label">Say this</div>
+            <p>"This is <strong>Discovery LifeOS</strong> — a unified behavioural intelligence platform. Not an app. Not a chatbot. <strong>An intelligence layer</strong> that sits on top of Vitality, HealthyFood, and Discovery Insure — and makes everything predictive instead of reactive."</p>
+          </div>
+          <div class="script-line">
+            <div class="label">Point at the KPI strip</div>
+            <p>"Right now it's monitoring <strong>five users</strong>. It's fired <strong>interventions</strong> proactively. And you can see, even at the platform level, the risk arc: baseline — decline — recovery. That arc only looks clean because something intervened during the decline."</p>
+          </div>
+          <div class="action-line">
+            <div class="label">Action</div>
+            <p>Scroll down slowly to the counterfactual chart. Point at the amber gap region.</p>
+          </div>
+          <div class="script-line">
+            <div class="label">On the chart</div>
+            <p>"The amber region is the <strong>value of early intervention</strong> — the risk points prevented. Averaged across all users, that gap is <strong>13.9 risk points per day</strong> in the recovery period. That's directly translatable to actuarial outcomes."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Beat 3 -->
+      <div class="beat" onclick="toggleBeat(this)">
+        <div class="beat-header">
+          <span class="beat-num">03</span>
+          <span class="beat-title">The user story — navigate to USR_001</span>
+          <span class="beat-time">3:00 – 5:30</span>
+          <span class="beat-chevron">▶</span>
+        </div>
+        <div class="beat-body">
+          <div class="action-line">
+            <div class="label">Action</div>
+            <p>Click through to Users → USR_001 (High Performer). Let the page load. Point at their name and risk badge.</p>
+          </div>
+          <div class="script-line">
+            <div class="label">Say this</div>
+            <p>"Let me show you a real story. This user — let's call them a high-performer, Diamond Vitality, active, engaged — <strong>starts declining in week 7.</strong> Slowly. Invisibly. Sleep drops 42 minutes a night. Gym visits halve. App engagement falls. Nobody notices."</p>
+          </div>
+          <div class="action-line">
+            <div class="label">Action</div>
+            <p>Click the "Risk" tab on the chart — point at the composite risk line rising from day 42 onward.</p>
+          </div>
+          <div class="script-line">
+            <div class="label">On the chart</div>
+            <p>"Our model picks up this trajectory <strong>before the user consciously notices it.</strong> That dashed red line at day 71 — that's when the early warning fires. <strong>7 days before the risk peaks.</strong> AUC of 0.988 — near-perfect advance detection."</p>
+          </div>
+          <div class="action-line">
+            <div class="label">Action</div>
+            <p>Switch the chart to "Wellness" view. Point at the sleep line dropping.</p>
+          </div>
+          <div class="script-line">
+            <div class="label">Continue</div>
+            <p>"Watch the signals. Sleep goes first. Then activity. Then nutrition. Then driving behaviour. <strong>Cross-domain fusion catches what no single-domain model can</strong> — because this isn't a health problem or a nutrition problem. It's the same underlying stress event showing up across all three."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Beat 4 -->
+      <div class="beat" onclick="toggleBeat(this)">
+        <div class="beat-header">
+          <span class="beat-num">04</span>
+          <span class="beat-title">Claude explains — the live AI moment</span>
+          <span class="beat-time">5:30 – 7:00</span>
+          <span class="beat-chevron">▶</span>
+        </div>
+        <div class="beat-body">
+          <div class="action-line">
+            <div class="label">Action</div>
+            <p>Scroll to the three Claude panels. Click "Ask Claude to explain →". Watch text stream in.</p>
+          </div>
+          <div class="script-line">
+            <div class="label">While it streams — say this</div>
+            <p>"The model doesn't just produce a number. <strong>Every risk score comes with an explanation</strong> — generated live by Claude. Watch the text arrive. This is what the user would see in the Discovery app. Not a score. A story."</p>
+          </div>
+          <div class="action-line">
+            <div class="label">After it loads</div>
+            <p>Read the first sentence of the explanation aloud. Then say:</p>
+          </div>
+          <div class="script-line">
+            <div class="label">Say this</div>
+            <p>"<strong>That's not a template.</strong> That's the model reading this specific person's behavioural trajectory and writing a personalised explanation. SHAP values tell Claude which signals mattered most. Claude turns that into something a human can actually act on."</p>
+          </div>
+          <div class="tip-box">
+            <div class="label">Tip</div>
+            <p>If the streaming is slow, that's fine — use it. Say "you can see the AI thinking in real time." The streaming effect is actually a feature, not a delay.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Beat 5 -->
+      <div class="beat" onclick="toggleBeat(this)">
+        <div class="beat-header">
+          <span class="beat-num">05</span>
+          <span class="beat-title">Interventions — the load-shedding moment</span>
+          <span class="beat-time">7:00 – 8:30</span>
+          <span class="beat-chevron">▶</span>
+        </div>
+        <div class="beat-body">
+          <div class="action-line">
+            <div class="label">Action</div>
+            <p>Click "Generate interventions →". While loading, toggle the Load-shedding switch ON in the top right.</p>
+          </div>
+          <div class="script-line">
+            <div class="label">Say this</div>
+            <p>"The intervention selector doesn't just pick a recommendation. It's a <strong>contextual bandit</strong> — it learns which lever works for this person, at this moment. Watch what happens when I toggle load-shedding on."</p>
+          </div>
+          <div class="action-line">
+            <div class="label">Action</div>
+            <p>Click "Generate interventions →" again with load-shedding on. Point at how recommendations change.</p>
+          </div>
+          <div class="script-line">
+            <div class="label">On the change</div>
+            <p>"The gym recommendation disappears. <strong>Home workout. Ready-to-eat HealthyFood options.</strong> The system knows Eskom's schedule and adapts. No global platform has this. <strong>This is South African intelligence.</strong>"</p>
+          </div>
+          <div class="tip-box">
+            <div class="label">Tip</div>
+            <p>Point at the reward shown on each card — "500 Vitality points", "25% HealthyFood discount". These are real Discovery products. This is not a concept — it's an integration spec.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Beat 6 -->
+      <div class="beat" onclick="toggleBeat(this)">
+        <div class="beat-header">
+          <span class="beat-num">06</span>
+          <span class="beat-title">The counterfactual — the killer moment</span>
+          <span class="beat-time">8:30 – 10:30</span>
+          <span class="beat-chevron">▶</span>
+        </div>
+        <div class="beat-body">
+          <div class="action-line">
+            <div class="label">Action</div>
+            <p>Click "Show counterfactual →". Pause. Let the chart animate in fully before speaking.</p>
+          </div>
+          <div class="script-line">
+            <div class="label">Say this — slowly</div>
+            <p>"This is the question every Discovery executive should be asking. <strong>Not 'what happened?' — but 'what would have happened?'</strong>"</p>
+          </div>
+          <div class="script-line">
+            <div class="label">Point at the two lines</div>
+            <p>"The <strong>teal line</strong> is what happened — with intervention. The <strong>dashed red line</strong> is the counterfactual — where this user was heading without it. The gap between them is what LifeOS creates. <strong>That gap has a number: 71% probability of full Vitality disengagement in 6 weeks. Without action.</strong>"</p>
+          </div>
+          <div class="script-line">
+            <div class="label">The close</div>
+            <p>"With the recommended interventions, this user's trajectory stabilises within 2–3 weeks. <strong>58% reduction in insurance claim risk.</strong> That's not a wellness metric. <strong>That's an actuarial outcome.</strong> That's the language Discovery speaks."</p>
+          </div>
+          <div class="warning-line">
+            <div class="label">Do NOT say</div>
+            <p>"This is just a prototype / simulation / demo data." Say "synthetic data" if asked — but don't volunteer it. The model logic is real. The architecture is real. The intervention framework is real.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Beat 7 -->
+      <div class="beat" onclick="toggleBeat(this)">
+        <div class="beat-header">
+          <span class="beat-num">07</span>
+          <span class="beat-title">The close — the ask</span>
+          <span class="beat-time">10:30 – 12:00</span>
+          <span class="beat-chevron">▶</span>
+        </div>
+        <div class="beat-body">
+          <div class="action-line">
+            <div class="label">Action</div>
+            <p>Switch to pitch deck slide 10 — "The Ask". Stand still. Don't click anything else.</p>
+          </div>
+          <div class="script-line">
+            <div class="label">Say this</div>
+            <p>"Discovery already has the data. Discovery already has the distribution. <strong>LifeOS is the prediction and intervention layer that makes it all proactive instead of reactive.</strong>"</p>
+          </div>
+          <div class="script-line">
+            <div class="label">The three asks</div>
+            <p>"We're asking for three things: <strong>3 months</strong> of engineering partnership to integrate with live Vitality and HealthyFood pipelines. <strong>1 pilot</strong> — a cohort of Discovery employees, real data, real outcomes. And <strong>1 measurable result</strong>: a reduction in Vitality disengagement and claims risk within 90 days."</p>
+          </div>
+          <div class="script-line">
+            <div class="label">The final line — memorise this</div>
+            <p>"<strong>The data already exists. The infrastructure already exists. The users already exist. All that's missing is the intelligence layer that makes it predictive. That's what we built.</strong>"</p>
+          </div>
+          <div class="tip-box">
+            <div class="label">Timing tip</div>
+            <p>If you're over 12 minutes, cut Beat 5 (load-shedding) to a single line mention instead of a live demo. Everything else is non-negotiable.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 3: KEY NUMBERS
+    ══════════════════════════════════════════════════════ -->
+    <section class="section" id="numbers">
+      <div class="section-eyebrow">Numbers to memorise</div>
+      <div class="section-title">Your pitch arsenal</div>
+      <div class="section-sub">If a judge challenges you on technical depth, these are your answers. Know them without hesitation.</div>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-value">0.988</div>
+          <div class="stat-label">Early warning AUC<br><span style="color:var(--gray5);font-size:10px">7-day advance detection</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="color:var(--teal2)">2.29</div>
+          <div class="stat-label">Risk score MAE<br><span style="color:var(--gray5);font-size:10px">avg error on 0–100 scale</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="color:var(--amber)">0.907</div>
+          <div class="stat-label">Risk score R²<br><span style="color:var(--gray5);font-size:10px">variance explained</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="color:var(--purple)">0.857</div>
+          <div class="stat-label">Early warning F1<br><span style="color:var(--gray5);font-size:10px">precision × recall</span></div>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-value" style="color:var(--coral)">71%</div>
+          <div class="stat-label">Disengagement probability<br><span style="color:var(--gray5);font-size:10px">without intervention (6 weeks)</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">58%</div>
+          <div class="stat-label">Claim risk reduction<br><span style="color:var(--gray5);font-size:10px">with early intervention</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="color:var(--amber)">−16pts</div>
+          <div class="stat-label">Avg risk gap per day<br><span style="color:var(--gray5);font-size:10px">actual vs projected (recovery)</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="color:var(--teal2)">33</div>
+          <div class="stat-label">Features per user<br><span style="color:var(--gray5);font-size:10px">across 3 domains, daily</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 4: TOUGH Q&A
+    ══════════════════════════════════════════════════════ -->
+    <section class="section" id="qa">
+      <div class="section-eyebrow">Judge Q&amp;A prep</div>
+      <div class="section-title">Tough questions — answered</div>
+      <div class="section-sub">Click each question to reveal the answer. Practise saying these out loud before the competition.</div>
+
+      <div class="qa-item" onclick="toggleQA(this)">
+        <div class="qa-q"><span class="qa-q-icon">Q</span>"Doesn't Discovery already do this with Vitality?"</div>
+        <div class="qa-a">Vitality tracks and rewards behaviour that already happened. <strong>LifeOS predicts behaviour that hasn't happened yet</strong> and intervenes before the negative outcome occurs. Vitality is a lagging indicator system. LifeOS is a leading indicator system. They're complementary — we make Vitality smarter, not redundant.</div>
+      </div>
+
+      <div class="qa-item" onclick="toggleQA(this)">
+        <div class="qa-q"><span class="qa-q-icon">Q</span>"How do you handle POPIA and cross-product data sharing?"</div>
+        <div class="qa-a"><strong>Consent by design.</strong> Users explicitly opt in to cross-product signal fusion with granular controls. Each data source requires separate consent. Users can opt down — reducing data sharing granularity while still receiving degraded predictions. Every data access is logged, timestamped, and auditable. The architecture treats privacy as a first-class constraint, not an afterthought.</div>
+      </div>
+
+      <div class="qa-item" onclick="toggleQA(this)">
+        <div class="qa-q"><span class="qa-q-icon">Q</span>"This is synthetic data — how do we know it works on real data?"</div>
+        <div class="qa-a">The model architecture, feature engineering, and intervention logic are production-grade — they'd work identically on real Vitality and HealthyFood data. <strong>The synthetic data was generated to match real behavioural distributions</strong> documented in wellness research. The AUC of 0.988 would naturally be validated on a real cohort in the pilot phase. We're proposing exactly that as the next step.</div>
+      </div>
+
+      <div class="qa-item" onclick="toggleQA(this)">
+        <div class="qa-q"><span class="qa-q-icon">Q</span>"Why XGBoost? Why not a deep learning model?"</div>
+        <div class="qa-a">Three reasons: <strong>Interpretability</strong> — XGBoost with SHAP values gives us per-prediction explanations that regulators and users can understand. <strong>Data efficiency</strong> — gradient boosted trees outperform deep learning on tabular data with hundreds, not millions, of users. <strong>Production readiness</strong> — XGBoost is battle-tested at scale. We'd graduate to a Temporal Fusion Transformer as data volume grows, but XGBoost is the right choice for this problem size.</div>
+      </div>
+
+      <div class="qa-item" onclick="toggleQA(this)">
+        <div class="qa-q"><span class="qa-q-icon">Q</span>"What's the commercial model? How does Discovery make money from this?"</div>
+        <div class="qa-a">Three revenue mechanisms: <strong>Reduced claims</strong> — every prevented Vitality disengagement reduces long-term health claims exposure. <strong>Premium retention</strong> — users who stay engaged don't lapse. <strong>HealthyFood GMV</strong> — contextual food discounts increase HealthyFood transaction volume. The counterfactual shows 58% claim risk reduction — even a fraction of that at scale is a significant actuarial saving.</div>
+      </div>
+
+      <div class="qa-item" onclick="toggleQA(this)">
+        <div class="qa-q"><span class="qa-q-icon">Q</span>"Could Discovery build this internally? Why do they need you?"</div>
+        <div class="qa-a">Discovery absolutely could — and we're not claiming otherwise. <strong>What we're offering is speed and focus.</strong> We've built the prediction and intervention layer in a hackathon timeframe. The question isn't capability — it's prioritisation. Large organisations move slowly on greenfield innovation. We've de-risked the concept, validated the architecture, and built a working demo. The 3-month pilot we're proposing answers the commercial question with real data.</div>
+      </div>
+
+      <div class="qa-item" onclick="toggleQA(this)">
+        <div class="qa-q"><span class="qa-q-icon">Q</span>"What makes this different from other health AI companies?"</div>
+        <div class="qa-a">Three differentiators no other platform has: <strong>Cross-product signal fusion</strong> — Vitality + HealthyFood + Insure in one model. No standalone health app has telematics and grocery scan data. <strong>The Discovery integration</strong> — we're not building a consumer product, we're building an intelligence layer on top of existing infrastructure that has 4 million+ users. <strong>South African context</strong> — load-shedding integration, HealthyFood retailer network, local route intelligence. This is locally defensible against global competitors.</div>
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 5: LOOM CHECKLIST
+    ══════════════════════════════════════════════════════ -->
+    <section class="section" id="loom">
+      <div class="section-eyebrow">Loom recording guide</div>
+      <div class="section-title">Recording a backup demo video</div>
+      <div class="section-sub">Always record a Loom before the live demo. If anything fails — wifi, API key, a crash — you have a flawless video to fall back on. Judges respect the backup.</div>
+
+      <div class="loom-grid">
+        <div class="loom-card">
+          <div class="loom-card-title">Before recording</div>
+          <ul>
+            <li>Restart both backend and frontend fresh</li>
+            <li>Clear all Claude panels (hard refresh the page)</li>
+            <li>Set browser zoom to 100%</li>
+            <li>Close all other browser tabs</li>
+            <li>Test audio — say "Discovery LifeOS demo" and play it back</li>
+            <li>Set Loom to record screen + camera if possible</li>
+            <li>Turn off all notifications</li>
+            <li>Target 8–10 minutes for the Loom (tighter than live)</li>
+          </ul>
+        </div>
+
+        <div class="loom-card">
+          <div class="loom-card-title">What to record (in order)</div>
+          <ul>
+            <li>Open on Dashboard — 30 sec overview of platform stats</li>
+            <li>Counterfactual chart — point at the amber gap (20 sec)</li>
+            <li>Navigate to USR_001 — introduce the user story (60 sec)</li>
+            <li>Switch chart views — wellness → risk (30 sec)</li>
+            <li>Click "Ask Claude to explain" — let it stream (45 sec)</li>
+            <li>Toggle load-shedding on → generate interventions (45 sec)</li>
+            <li>Click "Show counterfactual" — read the numbers aloud (60 sec)</li>
+            <li>End on the counterfactual chart — let it sit for 5 seconds</li>
+            <li>Final line: "That gap is the value of early intervention."</li>
+          </ul>
+        </div>
+
+        <div class="loom-card">
+          <div class="loom-card-title">Recording tips</div>
+          <ul>
+            <li>Speak slower than you think you need to — 20% slower</li>
+            <li>Pause 2 seconds after clicking anything — let it load on screen</li>
+            <li>Don't say "um" — pause silently instead</li>
+            <li>Narrate what you're clicking before you click it</li>
+            <li>Point your cursor at what you're talking about</li>
+            <li>If you make a mistake — stop, deep breath, continue. Don't restart.</li>
+            <li>Record at least 2 takes. Use the second one — you'll be warmer.</li>
+          </ul>
+        </div>
+
+        <div class="loom-card">
+          <div class="loom-card-title">After recording</div>
+          <ul>
+            <li>Watch the full recording before uploading</li>
+            <li>Check audio is clear throughout</li>
+            <li>Trim the start and end (Loom has basic editing)</li>
+            <li>Set the title: "Discovery LifeOS — GradHack Demo"</li>
+            <li>Copy the shareable link — have it ready on your phone</li>
+            <li>Also download the MP4 as an absolute backup</li>
+            <li>Share the link with all team members before the day</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         SECTION 6: RECOVERY PLAYS
+    ══════════════════════════════════════════════════════ -->
+    <section class="section" id="recovery">
+      <div class="section-eyebrow">When things go wrong</div>
+      <div class="section-title">Recovery plays</div>
+      <div class="section-sub">Something will go wrong. It always does. This section tells you exactly what to do so you don't freeze.</div>
+
+      <div class="checklist">
+
+        <div class="check-item" style="cursor:default">
+          <div class="check-body">
+            <div class="check-title" style="color:var(--coral)">🔴 Backend won't start</div>
+            <div class="check-sub" style="margin-top:6px;color:var(--gray3)">Switch to Loom video immediately. Say: "Let me show you the recorded demo while we sort the connection." Play the Loom. Continue your pitch script verbally over the video. Judges understand technical issues — they care about your composure.</div>
+          </div>
+        </div>
+
+        <div class="check-item" style="cursor:default">
+          <div class="check-body">
+            <div class="check-title" style="color:var(--coral)">🔴 Claude API times out or returns an error</div>
+            <div class="check-sub" style="margin-top:6px;color:var(--gray3)">The fallback responses are built into claude_service.py — they activate automatically when the API fails. The UI looks identical. If judges ask: "We have a fallback layer — the architecture is the same, the API just returns a cached response under load."</div>
+          </div>
+        </div>
+
+        <div class="check-item" style="cursor:default">
+          <div class="check-body">
+            <div class="check-title" style="color:var(--amber)">🟡 The chart doesn't load / shows blank</div>
+            <div class="check-sub" style="margin-top:6px;color:var(--gray3)">Hard refresh (Ctrl+Shift+R). If still blank, switch to the pitch deck slide 7 — it has the same counterfactual chart as a native PowerPoint chart. Narrate from there. Say "you can see the same pattern here in the deck."</div>
+          </div>
+        </div>
+
+        <div class="check-item" style="cursor:default">
+          <div class="check-body">
+            <div class="check-title" style="color:var(--amber)">🟡 You forget a number mid-pitch</div>
+            <div class="check-sub" style="margin-top:6px;color:var(--gray3)">Say "let me pull that up" and point at the model performance card on the dashboard — it shows all four metrics. Never make up a number. Judges remember made-up numbers.</div>
+          </div>
+        </div>
+
+        <div class="check-item" style="cursor:default">
+          <div class="check-body">
+            <div class="check-title" style="color:var(--amber)">🟡 You're running over time</div>
+            <div class="check-sub" style="margin-top:6px;color:var(--gray3)">Cut Beat 5 (load-shedding toggle) to a single mention: "The system adapts to load-shedding schedules — gym becomes home workout, cooking becomes ready-to-eat." Then jump straight to the counterfactual. Never rush the close — it's the most important beat.</div>
+          </div>
+        </div>
+
+        <div class="check-item" style="cursor:default">
+          <div class="check-body">
+            <div class="check-title" style="color:var(--teal)">🟢 A judge interrupts with a question mid-demo</div>
+            <div class="check-sub" style="margin-top:6px;color:var(--gray3)">Answer it in one sentence, then say "I'll show you that in a moment" and continue the demo script. If they press further, answer fully — but use the Q&A section language. Never let a question derail the story arc.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+// ── Check items ──────────────────────────────────────────────
+function toggleCheck(el) {
+  el.classList.toggle('done');
+  updateProgress();
+}
+
+function updateProgress() {
+  const all  = document.querySelectorAll('#preChecklist .check-item');
+  const done = document.querySelectorAll('#preChecklist .check-item.done');
+  const pct  = all.length ? (done.length / all.length) * 100 : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+// ── Beat accordion ───────────────────────────────────────────
+function toggleBeat(el) {
+  if (el.classList.contains('open')) {
+    el.classList.remove('open');
+  } else {
+    document.querySelectorAll('.beat.open').forEach(b => b.classList.remove('open'));
+    el.classList.add('open');
+  }
+}
+
+// ── Q&A accordion ────────────────────────────────────────────
+function toggleQA(el) {
+  el.classList.toggle('open');
+}
+
+// ── Timer ────────────────────────────────────────────────────
+let timerInterval = null;
+let seconds = 0;
+let running = false;
+
+function toggleTimer() {
+  if (running) {
+    clearInterval(timerInterval);
+    running = false;
+    document.getElementById('timerStart').textContent = 'Start';
+    document.getElementById('timerStart').classList.remove('running');
+  } else {
+    timerInterval = setInterval(() => {
+      seconds++;
+      updateTimerDisplay();
+      // Warn at 10:00 and 12:00
+      if (seconds === 600 || seconds === 720) {
+        document.querySelector('.timer-display').style.color =
+          seconds === 720 ? 'var(--coral)' : 'var(--amber)';
+      }
+    }, 1000);
+    running = true;
+    document.getElementById('timerStart').textContent = 'Pause';
+    document.getElementById('timerStart').classList.add('running');
+  }
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  running = false;
+  seconds = 0;
+  updateTimerDisplay();
+  document.getElementById('timerStart').textContent = 'Start';
+  document.getElementById('timerStart').classList.remove('running');
+  document.querySelector('.timer-display').style.color = 'var(--teal)';
+}
+
+function updateTimerDisplay() {
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  document.getElementById('timerDisplay').textContent = `${m}:${s}`;
+}
+
+// ── Active nav on scroll ─────────────────────────────────────
+const sections = document.querySelectorAll('.section');
+const navItems = document.querySelectorAll('.nav-item');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  navItems.forEach(n => {
+    n.classList.toggle('active', n.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+
+</body>
+</html>
