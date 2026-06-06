@@ -1,6 +1,0 @@
-user_id,name,age,persona,vitality_status,income_band,has_gym_membership,city,province,enrolled_date
-USR_001,William Jennings,32,High performer,Diamond,high,True,Johannesburg,Gauteng,2023-07-15
-USR_002,Lesley Wilson-Newman,41,Busy parent,Gold,middle,False,Cape Town,Gauteng,2023-09-22
-USR_003,Abdul Hopkins,27,Young professional,Gold,middle,True,Johannesburg,KwaZulu-Natal,2023-02-26
-USR_004,Mrs Lauren Green,55,Senior employee,Silver,middle,False,Johannesburg,KwaZulu-Natal,2023-04-30
-USR_005,Tina Foster,23,Student,Blue,low,False,Johannesburg,Gauteng,2023-10-16
