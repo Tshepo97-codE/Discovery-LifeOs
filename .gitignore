@@ -22,6 +22,7 @@ ml/data/*.csv
 ml/data/*.png
 ml/data/*.json
 ml/data/*.txt
+ml/data/model_inference.py
 # Keep metadata and feature names in git
 !ml/data/metadata.json
 !ml/data/model_feature_names.json
