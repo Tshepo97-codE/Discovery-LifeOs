@@ -49,8 +49,8 @@ discovery-lifeos/
 │   │   ├── App.jsx           # Routing + nav shell
 │   │   ├── api.js            # Axios + EventSource calls
 │   │   ├── components.jsx    # Shared UI components
-│   │   ├── CounterfactualChart.jsx
 │   │   └── pages/
+│   │       ├── CounterfactualChart.jsx
 │   │       ├── Dashboard.jsx
 │   │       ├── UsersPage.jsx
 │   │       └── UserDetail.jsx
