@@ -1,7 +1,7 @@
 ﻿# Discovery LifeOS
 
 > **Unified Predictive Behavioural Intelligence Platform**
-> GradHack 2024 — Discovery Group
+> GradHack 2026 — Discovery Group
 
 LifeOS is an AI-powered behavioural intelligence layer that predicts wellness decline, nutrition drift, and mobility risk **before** negative outcomes occur — then delivers personalised, contextual interventions through Discovery's existing ecosystem (Vitality, HealthyFood, Insure).
 
