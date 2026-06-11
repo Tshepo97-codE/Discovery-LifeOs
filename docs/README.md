@@ -154,4 +154,4 @@ docker compose up --build
 
 ## Licence
 
-Built for Discovery GradHack 2024. All rights reserved.
+Built for Discovery GradHack 2026. All rights reserved.
